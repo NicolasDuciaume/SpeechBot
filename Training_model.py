@@ -73,7 +73,7 @@ model.compile(optimizer=tf.keras.optimizers.Adam(), loss='categorical_crossentro
 model.summary(line_length=200)
 tf.keras.utils.plot_model(model, to_file='model_word.png', show_shapes=True)
 batch_size = 32
-epochs = 100
+epochs = 50
 history=model.fit(X_audio, Y_word, shuffle=False, batch_size=batch_size, epochs=epochs, steps_per_epoch=len(X_audio)//batch_size, validation_data=(X_audio_test, Y_word_test))
 model.save_weights('model_word.h5')
 model.save("model_word")
