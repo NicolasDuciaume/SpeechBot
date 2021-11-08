@@ -11,7 +11,7 @@ from tensorflow.keras import layers
 import matplotlib.pyplot as plt
 import wave
 
-words=['down', 'go', 'left', 'no', 'right', 'stop', 'up', 'yes']
+words=['down', 'go', 'left']
 block_length = 0.050#->500ms
 voice_max_length = int(1/block_length)#->2s
 wordToId, idToWord = {}, {}
@@ -44,7 +44,7 @@ def audioToTensor(filepath):
         parts[i] = part
     return parts
 
-model = tf.keras.models.load_model('C:/Users/nicol/model_word')
+model = tf.keras.models.load_model('D:/Final_Project/SpeechBot/model_word')
 
 CHUNK = 1024
 FORMAT, CHANNELS = pyaudio.paInt16, 1

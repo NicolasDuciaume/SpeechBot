@@ -44,10 +44,10 @@ def audioToTensor(filepath):
         parts[i] = part
     return parts
 
-model = tf.keras.models.load_model('C:/Users/nicol/model_word')
+model = tf.keras.models.load_model('D:/Final_Project/SpeechBot/model_word')
 
 
-for test_path, test_string in [('D:/speech2/yes2.wav', 'right'), ('D:/speech2/right.wav', 'right')]:
+for test_path, test_string in [('D:/Final_Project/SpeechBot/input/audio/left/left1.wav', 'left'), ('D:/Final_Project/SpeechBot/input/audio/go/go4.wav', 'go')]:
     print("test_string: ", test_string)
     test_audio = audioToTensor(test_path)
     result = model.predict(np.array([test_audio]))

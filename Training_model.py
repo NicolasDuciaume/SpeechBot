@@ -7,7 +7,7 @@ from tensorflow.keras.layers.experimental import preprocessing
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras import layers
 import matplotlib.pyplot as plt
-words=['down', 'go', 'left', 'no', 'right', 'stop', 'up', 'yes']
+words=['go','left','down']
 block_length = 0.050#->500ms
 voice_max_length = int(1/block_length)#->2s
 print("voice_max_length:", voice_max_length)
@@ -35,16 +35,16 @@ def audioToTensor(filepath):
         part = spectrogram[p:p+part_length]
         parts[i] = part
     return parts
-max_data = 200
+max_data = 8
 wordToId, idToWord = {}, {}
-testParts = audioToTensor('D:/speech2/input/tensorflow-speech-recognition-challenge/train/audio/go/0a9f9af7_nohash_0.wav')
+testParts = audioToTensor('D:/Final_Project/SpeechBot/input/audio/go/go3.wav')
 print(testParts.shape)
-X_audio, Y_word = np.zeros((max_data*8, testParts.shape[0], testParts.shape[1], testParts.shape[2])), np.zeros((max_data*8, 8))
+X_audio, Y_word = np.zeros((max_data*3, testParts.shape[0], testParts.shape[1], testParts.shape[2])), np.zeros((max_data*3, 3))
 
 files = {}
 for i, word in enumerate(words):
     wordToId[word], idToWord[i] = i, word
-    files[word] = glob.glob('D:/speech2/input/tensorflow-speech-recognition-challenge/train/audio/'+word+'/*.wav')
+    files[word] = glob.glob('D:/Final_Project/SpeechBot/input/audio/'+word+'/*.wav')
 for nb in range(0, max_data):
     for i, word in enumerate(words):
         audio = audioToTensor(files[word][nb])
@@ -71,12 +71,12 @@ decoder_dense = Dense(len(words), activation='softmax')(encoder_lstm)
 model = Model(encoder_inputs, decoder_dense)
 model.compile(optimizer=tf.keras.optimizers.Adam(), loss='categorical_crossentropy', metrics=['acc'])
 model.summary(line_length=200)
-tf.keras.utils.plot_model(model, to_file='model_word.png', show_shapes=True)
-batch_size = 32
-epochs = 50
+tf.keras.utils.plot_model(model, to_file='D:/Final_Project/SpeechBot/model_word.png', show_shapes=True)
+batch_size = 5
+epochs = 100
 history=model.fit(X_audio, Y_word, shuffle=False, batch_size=batch_size, epochs=epochs, steps_per_epoch=len(X_audio)//batch_size, validation_data=(X_audio_test, Y_word_test))
-model.save_weights('model_word.h5')
-model.save("model_word")
+model.save_weights('D:/Final_Project/SpeechBot/model_word.h5')
+model.save("D:/Final_Project/SpeechBot/model_word")
 metrics = history.history
 plt.plot(history.epoch, metrics['loss'], metrics['acc'])
 plt.legend(['loss', 'acc'])
@@ -87,7 +87,7 @@ score = model.evaluate(X_audio_test, Y_word_test, verbose = 0)
 print('Test loss:', score[0])
 print('Test accuracy:', score[1])
 print("Test voice recognition")
-for test_path, test_string in [('D:/speech2/yes.wav', 'yes'), ('D:/speech2/yes2.wav', 'right')]:
+for test_path, test_string in [('D:/Final_Project/SpeechBot/input/audio/go/go2.wav', 'go'), ('D:/Final_Project/SpeechBot/input/audio/down/down4.wav', 'down')]:
     print("test_string: ", test_string)
     test_audio = audioToTensor(test_path)
     result = model.predict(np.array([test_audio]))
