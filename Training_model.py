@@ -7,7 +7,7 @@ from tensorflow.keras.layers.experimental import preprocessing
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras import layers
 import matplotlib.pyplot as plt
-words=['go','left','down']
+words=['Nicolas', 'Nazifa', 'Christopher', 'Mohammad']
 block_length = 0.050#->500ms
 voice_max_length = int(1/block_length)#->2s
 print("voice_max_length:", voice_max_length)
@@ -35,11 +35,11 @@ def audioToTensor(filepath):
         part = spectrogram[p:p+part_length]
         parts[i] = part
     return parts
-max_data = 8
+max_data = 100
 wordToId, idToWord = {}, {}
-testParts = audioToTensor('D:/Final_Project/SpeechBot/input/audio/go/go3.wav')
+testParts = audioToTensor('D:/Final_Project/SpeechBot/input/audio/Nicolas/Nicolas3.wav')
 print(testParts.shape)
-X_audio, Y_word = np.zeros((max_data*3, testParts.shape[0], testParts.shape[1], testParts.shape[2])), np.zeros((max_data*3, 3))
+X_audio, Y_word = np.zeros((max_data*4, testParts.shape[0], testParts.shape[1], testParts.shape[2])), np.zeros((max_data*4, 4))
 
 files = {}
 for i, word in enumerate(words):
@@ -72,8 +72,8 @@ model = Model(encoder_inputs, decoder_dense)
 model.compile(optimizer=tf.keras.optimizers.Adam(), loss='categorical_crossentropy', metrics=['acc'])
 model.summary(line_length=200)
 tf.keras.utils.plot_model(model, to_file='D:/Final_Project/SpeechBot/model_word.png', show_shapes=True)
-batch_size = 5
-epochs = 100
+batch_size = 16
+epochs = 200
 history=model.fit(X_audio, Y_word, shuffle=False, batch_size=batch_size, epochs=epochs, steps_per_epoch=len(X_audio)//batch_size, validation_data=(X_audio_test, Y_word_test))
 model.save_weights('D:/Final_Project/SpeechBot/model_word.h5')
 model.save("D:/Final_Project/SpeechBot/model_word")
@@ -87,7 +87,7 @@ score = model.evaluate(X_audio_test, Y_word_test, verbose = 0)
 print('Test loss:', score[0])
 print('Test accuracy:', score[1])
 print("Test voice recognition")
-for test_path, test_string in [('D:/Final_Project/SpeechBot/input/audio/go/go2.wav', 'go'), ('D:/Final_Project/SpeechBot/input/audio/down/down4.wav', 'down')]:
+for test_path, test_string in [('D:/Final_Project/SpeechBot/input/audio/Nazifa/Nazifa2.wav', 'Nazifa'), ('D:/Final_Project/SpeechBot/input/audio/Christopher/Christopher4.wav', 'Christopher')]:
     print("test_string: ", test_string)
     test_audio = audioToTensor(test_path)
     result = model.predict(np.array([test_audio]))

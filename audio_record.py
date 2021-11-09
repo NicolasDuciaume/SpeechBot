@@ -6,7 +6,10 @@ CHUNK = 1024
 FORMAT, CHANNELS = pyaudio.paInt16, 1
 RATE = 16000
 RECORD_SECONDS = 2
-WAVE_OUTPUT_FILENAME = "D:/Final_Project/SpeechBot/input/audio/left/left20.wav"
+WAVE_OUTPUT_FILENAME = "D:/Final_Project/SpeechBot/input/audio/Nazifa/Nazifa33.wav"
+
+
+    
 
 p = pyaudio.PyAudio()
 
