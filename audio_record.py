@@ -6,37 +6,41 @@ CHUNK = 1024
 FORMAT, CHANNELS = pyaudio.paInt16, 1
 RATE = 16000
 RECORD_SECONDS = 2
-WAVE_OUTPUT_FILENAME = "D:/Final_Project/SpeechBot/input/audio/Nazifa/Nazifa33.wav"
+WAVE_OUTPUT_FILENAME = "C:/Users/anwar_tmk/Documents/Carleton/4th Year/4th year project/SpeechBot/input/audio/Christopher/Christopher53.wav"
 
 
-    
+num = 91
+word = "Christopher"
+for x in range(10):
+	p = pyaudio.PyAudio()
 
-p = pyaudio.PyAudio()
-
-stream = p.open(format=FORMAT,
-                channels=CHANNELS,
-                rate=RATE,
-                input=True,
-                frames_per_buffer=CHUNK)
+	stream = p.open(format=FORMAT,
+					channels=CHANNELS,
+					rate=RATE,
+					input=True,
+					frames_per_buffer=CHUNK)
 
 
-print("* recording")
+	print(x)
+	print("* recording")
 
-frames = []
+	frames = []
 
-for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
-    data = stream.read(CHUNK)
-    frames.append(data)
+	for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
+		data = stream.read(CHUNK)
+		frames.append(data)
 
-print("* done recording")
+	print("* done recording")
 
-stream.stop_stream()
-stream.close()
-p.terminate()
+	stream.stop_stream()
+	stream.close()
+	p.terminate()
 
-wf = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
-wf.setnchannels(CHANNELS)
-wf.setsampwidth(p.get_sample_size(FORMAT))
-wf.setframerate(RATE)
-wf.writeframes(b''.join(frames))
-wf.close()
+	WAVE_OUTPUT_FILENAME = "C:/Users/anwar_tmk/Documents/Carleton/4th Year/4th year project/SpeechBot/input/audio/{0}/{1}{2}.wav".format(word, word, num)
+	wf = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
+	wf.setnchannels(CHANNELS)
+	wf.setsampwidth(p.get_sample_size(FORMAT))
+	wf.setframerate(RATE)
+	wf.writeframes(b''.join(frames))
+	wf.close()
+	num += 1
