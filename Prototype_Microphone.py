@@ -46,6 +46,7 @@ def audioToTensor(filepath):
 
 model = tf.keras.models.load_model('D:/Final_Project/SpeechBot/model_word')
 
+
 CHUNK = 1024
 FORMAT, CHANNELS = pyaudio.paInt16, 1
 RATE = 16000
