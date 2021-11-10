@@ -4,6 +4,7 @@ import tensorflow as tf
 from tensorflow.keras.models import Model, Sequential
 from tensorflow.keras.layers import LSTM, Input, Dense, BatchNormalization, Conv2D, MaxPooling2D, Dropout, Flatten, TimeDistributed
 from tensorflow.keras.layers.experimental import preprocessing
+from tensorflow.keras.optimizers import SGD
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras import layers
 import matplotlib.pyplot as plt
@@ -69,12 +70,14 @@ flatten = TimeDistributed(Flatten())(dropout)
 encoder_lstm = LSTM(units=latent_dim)(flatten)
 decoder_dense = Dense(len(words), activation='softmax')(encoder_lstm)
 model = Model(encoder_inputs, decoder_dense)
-model.compile(optimizer=tf.keras.optimizers.Adam(), loss='categorical_crossentropy', metrics=['acc'])
+opt = SGD(lr=0.002)
+model.compile(loss = "categorical_crossentropy", optimizer = opt, metrics=['acc'])
+##model.compile(optimizer=tf.keras.optimizers.Adam(), loss='categorical_crossentropy', metrics=['acc'])
 model.summary(line_length=200)
 tf.keras.utils.plot_model(model, to_file='D:/Final_Project/SpeechBot/model_word.png', show_shapes=True)
-batch_size = 16
+batch_size = 12
 epochs = 200
-history=model.fit(X_audio, Y_word, shuffle=False, batch_size=batch_size, epochs=epochs, steps_per_epoch=len(X_audio)//batch_size, validation_data=(X_audio_test, Y_word_test))
+history=model.fit(X_audio, Y_word, shuffle=False, batch_size=batch_size, epochs=epochs, steps_per_epoch=len(X_audio)//batch_size, validation_data=(X_audio_test, Y_word_test)) ##shuffle was false
 model.save_weights('D:/Final_Project/SpeechBot/model_word.h5')
 model.save("D:/Final_Project/SpeechBot/model_word")
 metrics = history.history
