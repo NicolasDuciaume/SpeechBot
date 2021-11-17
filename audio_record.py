@@ -6,12 +6,11 @@ CHUNK = 1024
 FORMAT, CHANNELS = pyaudio.paInt16, 1
 RATE = 16000
 RECORD_SECONDS = 2
-WAVE_OUTPUT_FILENAME = "C:/Users/anwar_tmk/Documents/Carleton/4th Year/4th year project/SpeechBot/input/audio/Christopher/Christopher53.wav"
+# WAVE_OUTPUT_FILENAME = "C:/Users/anwar_tmk/Documents/Carleton/4th Year/4th year project/SpeechBot/input/audio/Christopher/Christopher53.wav"
 
-
-num = 91
-word = "Christopher"
-for x in range(10):
+num = 90
+word = "Nicolas"
+for x in range(3):
 	p = pyaudio.PyAudio()
 
 	stream = p.open(format=FORMAT,
@@ -43,4 +42,5 @@ for x in range(10):
 	wf.setframerate(RATE)
 	wf.writeframes(b''.join(frames))
 	wf.close()
+	
 	num += 1
