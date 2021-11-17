@@ -44,7 +44,7 @@ def audioToTensor(filepath):
         parts[i] = part
     return parts
 
-model = tf.keras.models.load_model('D:/Final_Project/SpeechBot/model_word')
+model = tf.keras.models.load_model('D:/best_model/model_word')
 
 
 CHUNK = 1024

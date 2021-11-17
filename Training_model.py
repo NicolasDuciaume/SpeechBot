@@ -8,7 +8,7 @@ from tensorflow.keras.optimizers import SGD
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras import layers
 import matplotlib.pyplot as plt
-words=['Nicolas', 'Nazifa', 'Christopher', 'Mohammad']
+words=['Nicolas', 'Nazifa', 'Christopher']
 block_length = 0.050#->500ms
 voice_max_length = int(1/block_length)#->2s
 print("voice_max_length:", voice_max_length)
@@ -40,7 +40,7 @@ max_data = 100
 wordToId, idToWord = {}, {}
 testParts = audioToTensor('D:/Final_Project/SpeechBot/input/audio/Nicolas/Nicolas3.wav')
 print(testParts.shape)
-X_audio, Y_word = np.zeros((max_data*4, testParts.shape[0], testParts.shape[1], testParts.shape[2])), np.zeros((max_data*4, 4))
+X_audio, Y_word = np.zeros((max_data*3, testParts.shape[0], testParts.shape[1], testParts.shape[2])), np.zeros((max_data*3, 3))
 
 files = {}
 for i, word in enumerate(words):
@@ -68,16 +68,16 @@ maxpool = TimeDistributed(MaxPooling2D())(conv2d)
 dropout = TimeDistributed(Dropout(0.25))(maxpool)
 flatten = TimeDistributed(Flatten())(dropout)
 encoder_lstm = LSTM(units=latent_dim)(flatten)
-decoder_dense = Dense(len(words), activation='softmax')(encoder_lstm)
+decoder_dense = Dense(len(words), activation='relu')(encoder_lstm)
 model = Model(encoder_inputs, decoder_dense)
-opt = SGD(lr=0.002)
-model.compile(loss = "categorical_crossentropy", optimizer = opt, metrics=['acc'])
+opt = SGD(lr=0.005)
+model.compile(loss = "mse", optimizer = opt, metrics=['acc'])
 ##model.compile(optimizer=tf.keras.optimizers.Adam(), loss='categorical_crossentropy', metrics=['acc'])
 model.summary(line_length=200)
 tf.keras.utils.plot_model(model, to_file='D:/Final_Project/SpeechBot/model_word.png', show_shapes=True)
 batch_size = 12
-epochs = 200
-history=model.fit(X_audio, Y_word, shuffle=False, batch_size=batch_size, epochs=epochs, steps_per_epoch=len(X_audio)//batch_size, validation_data=(X_audio_test, Y_word_test)) ##shuffle was false
+epochs = 100
+history=model.fit(X_audio, Y_word, shuffle=True, batch_size=batch_size, epochs=epochs, steps_per_epoch=len(X_audio)//batch_size, validation_data=(X_audio_test, Y_word_test)) ##shuffle was false
 model.save_weights('D:/Final_Project/SpeechBot/model_word.h5')
 model.save("D:/Final_Project/SpeechBot/model_word")
 metrics = history.history
