@@ -1,0 +1,33 @@
+{
+  "intents": [
+    {
+      "tag":"greeting",
+      "patterns": [ "Hi", "Hello", "Hey", "Good morning" ],
+      "responses": [ "Hello", "Hi", "Howdy" ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [ "Bye", "See you later alligator", "Goodbye" ],
+      "responses": [ "Have a nice day", "In a while crocodile", "Bye! Come back again" ]
+    },
+    {
+      "tag": "thanks",
+      "patterns": [ "Thanks", "Thank you", "That's helpful", "Thank you so much" ],
+      "responses": [ "Happy to help!", "Any time!", "My pleasure", "You're most welcome!" ]
+    },
+    {
+      "tag": "about",
+      "patterns": [ "Who are you?", "What are you?" ],
+      "responses": [ "I'm Tom, your chatbot", "I'm a chatbot for your 4th year project" ]
+    },
+    {"tag": "name",
+      "patterns": [ "What is your name?", "What should I call you?", "What name do you go by?" ],
+      "responses": ["You can call me Tom.", "I'm Tom!", "Just call me as Tom"]
+    },
+    {
+      "tag": "smalltalk",
+      "patterns": ["How are you?", "This is some weather we're having", "How was your day?"],
+      "responses": ["I'm well! How are you?", "I know right, the weather is so unpredictable!", "My day was awful!"]
+    }
+  ]
+}
