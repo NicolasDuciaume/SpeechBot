@@ -20,10 +20,9 @@
       "patterns": [ "Who are you?", "What are you?" ],
       "responses": [ "I'm Tom, your chatbot", "I'm a chatbot for your 4th year project" ]
     },
-    { 
-      "tag": "name",
+    {"tag": "name",
       "patterns": [ "What is your name?", "What should I call you?", "What name do you go by?" ],
-      "responses": [ "You can call me Tom.", "I'm Tom!", "Just call me as Tom" ]
+      "responses": ["You can call me Tom.", "I'm Tom!", "Just call me as Tom"]
     },
     {
       "tag": "smalltalk",
