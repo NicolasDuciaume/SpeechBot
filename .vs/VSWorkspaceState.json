@@ -1,10 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\input",
-    "\\input\\audio",
+    "\\chatbot",
+    "\\chatbot\\chat_model",
     "\\model_word"
   ],
-  "SelectedNode": "\\audio_record.py",
+  "SelectedNode": "\\chatbot\\chat.py",
   "PreviewInSolutionExplorer": false
 }
