@@ -2,7 +2,7 @@
   "ExpandedNodes": [
     "",
     "\\chatbot",
-    "\\input\\audio",
+    "\\chatbot\\chat_model",
     "\\model_word"
   ],
   "SelectedNode": "\\chatbot\\chat.py",
