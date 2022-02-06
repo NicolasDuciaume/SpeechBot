@@ -3,7 +3,7 @@ from keras.models import load_model
 import numpy as np
 model=load_model('D:/speech2/best_model.hdf5')
 
-all_label = ["yes", "no", "up", "down","left", "right", "on", "off", "stop", "go"]
+all_label = ["abandon", "a", "ability"]
 
 from sklearn.preprocessing import LabelEncoder
 le = LabelEncoder()
@@ -24,8 +24,8 @@ import IPython.display as ipd
 import time
 
 samplerate = 16000  
-duration = 1 # seconds
-filename = 'D:/speech2/test'
+duration = 1.5 # seconds
+filename = 'D:/speech2/'
 
 def pad_audio(data, fs, T):
     # Calculate target number of samples
@@ -47,24 +47,57 @@ def pad_audio(data, fs, T):
     else:
         return data
 
-#print("start")
-for x in range(6):
-    print("start")
-    mydata = sd.rec(int(samplerate * duration), samplerate=samplerate,
-        channels=1, blocking=True)
-    mydata = pad_audio(mydata,samplerate, 0.2)
-    sd.wait()
-    sf.write(filename+str(x)+".wav", mydata, samplerate)
-    print("end")
-    #time.sleep(0)
 
-#print("end")
+
+print("start")
+mydata = sd.rec(int(samplerate * duration), samplerate=samplerate,
+    channels=1, blocking=True)
+    
+sd.wait()
+sf.write(filename+"oldSong.wav", mydata, samplerate)
+print("end")
+#time.sleep(0)
+
+samples, sample_rate = librosa.load(filename+'oldSong.wav', sr = 16000)
+samples = librosa.resample(samples, sample_rate * duration, 8000)
+ipd.Audio(samples,rate=8000)
+print(predict(samples))
 
 os.listdir('D:/speech2')
 filepath='D:/speech2'
 
-for y in range(6):
-    samples, sample_rate = librosa.load(filepath + '/' + 'test' + str(y) + '.wav', sr = 16000)
-    samples = librosa.resample(samples, sample_rate, 8000)
-    ipd.Audio(samples,rate=8000)
-    print(predict(samples))
+###
+#t1 = 0
+#t2 = 500
+
+#from pydub import AudioSegment 
+
+#predicts = []
+
+#for y in range(89):
+    #newAudio = AudioSegment.from_wav(filename+"oldSong.wav")
+    #newAudio = newAudio[t1:t2]
+    #newAudio.export(filename+'newSong.wav', format="wav")
+    #samples, sample_rate = librosa.load(filename+'newSong.wav', sr = 16000)
+    #samples = librosa.resample(samples, sample_rate, 8000)
+    #ipd.Audio(samples,rate=8000)
+    #predicts.append(predict(samples))
+   # print(predict(samples))
+    #t1 = t1 * 10 #Works in milliseconds
+    #t2 = t2 * 10
+    
+#current = ""
+#occurence = 0
+#real_words = ["test"]
+
+#for y in range(len(predicts)):
+#    if current == predicts[y]:
+#        occurence = occurence + 1
+#        if occurence == 5:
+#            if real_words[len(real_words) - 1] != predicts[y]:
+#                real_words.append(current)
+#    else:
+#        current == predicts[y]
+
+
+#print(real_words)
