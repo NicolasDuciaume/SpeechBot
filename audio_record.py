@@ -7,7 +7,7 @@ import time
 
 samplerate = 16000  
 duration = 1.5 # seconds
-filename = 'D:/speech2/input/tensorflow-speech-recognition-challenge/train/audio/abroad/abroad'
+filename = 'D:/SYSC4705/SpeechBot/input/audio/accurate/accurate'
 
 for x in range(50):
     print("start")

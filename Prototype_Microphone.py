@@ -1,9 +1,9 @@
 from ctypes import sizeof
 from keras.models import load_model
 import numpy as np
-model=load_model('D:/speech2/best_model.hdf5')
+model=load_model('D:/SYSC4705/SpeechBot/best_model.hdf5')
 
-all_label = ["abandon", "a", "ability"]
+all_label = ["abandon", "a", "ability", "above", "able", "abortion", "about", "abroad","absence","absolute","absolutely","absorb","abuse","academic","accept","access","accident","accompany","accomplish","according","account","accurate"]
 
 from sklearn.preprocessing import LabelEncoder
 le = LabelEncoder()

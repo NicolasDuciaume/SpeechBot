@@ -7,11 +7,11 @@ from scipy.io import wavfile
 import warnings
 
 warnings.filterwarnings("ignore")
-os.listdir('D:/speech2/input/')
+os.listdir('D:/SYSC4705/SpeechBot/input')
 
-labels=["abandon", "a", "ability"]
+labels=["abandon", "a", "ability", "above", "able", "abortion", "about", "abroad","absence","absolute","absolutely","absorb","abuse","academic","accept","access","accident","accompany","accomplish","according","account","accurate"]
 
-train_audio_path = 'D:/speech2/input/tensorflow-speech-recognition-challenge/train/audio/'
+train_audio_path = 'D:/SYSC4705/SpeechBot/input/audio/'
 duration = 1.5
 all_wave = []
 all_label = []
@@ -86,9 +86,9 @@ model.summary()
 model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
 
 es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=10, min_delta=0.0001) 
-mc = ModelCheckpoint('D:/speech2/best_model.hdf5', monitor='val_accuracy', verbose=1, save_best_only=True, mode='max')
+mc = ModelCheckpoint('D:/SYSC4705/SpeechBot/best_model.hdf5', monitor='val_accuracy', verbose=1, save_best_only=True, mode='max')
 
-history=model.fit(x_tr, y_tr ,epochs=50, callbacks=[es,mc], batch_size=2, validation_data=(x_val,y_val))
+history=model.fit(x_tr, y_tr ,epochs=50, callbacks=[es,mc], batch_size=4, validation_data=(x_val,y_val))
 
 from matplotlib import pyplot
 pyplot.plot(history.history['loss'], label='train')
