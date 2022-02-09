@@ -1,0 +1,10 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\chatbot",
+    "\\chatbot\\chat_model",
+    "\\chatbot\\chat_model\\variables"
+  ],
+  "SelectedNode": "\\chatbot\\train_chatbot.py",
+  "PreviewInSolutionExplorer": false
+}
