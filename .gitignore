@@ -1,8 +1,1 @@
-.vs/
-.vs/VSWorkspaceState.json
-.vs/SpeechBot/v15/.suo
-.vs/slnx.sqlite
-.vs/config/applicationhost.config
-.vs/slnx.sqlite
-.vs/VSWorkspaceState.json
-.vs/VSWorkspaceState.json
+.vs/*
