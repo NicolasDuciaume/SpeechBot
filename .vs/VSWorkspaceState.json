@@ -3,8 +3,10 @@
     "",
     "\\chatbot",
     "\\chatbot\\chat_model",
-    "\\chatbot\\chat_model\\variables"
+    "\\chatbot\\chat_model\\variables",
+    "\\input",
+    "\\input\\audio"
   ],
-  "SelectedNode": "\\chatbot\\chat.py",
+  "SelectedNode": "\\audio_record.py",
   "PreviewInSolutionExplorer": false
 }

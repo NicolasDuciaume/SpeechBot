@@ -7,13 +7,16 @@ import time
 
 samplerate = 16000  
 duration = 1.5 # seconds
-filename = 'D:/SYSC4705/SpeechBot/input/audio/accurate/accurate'
+filename = './input/audio/yes/yes'
+#filename = './input/rerecord/yes'
 
 for x in range(50):
+    print("\n{0}".format(x))
     print("start")
-    print(x)
+    
     mydata = sd.rec(int(samplerate * duration), samplerate=samplerate,
         channels=1, blocking=True)
     print("end")
     sd.wait()
     sf.write(filename+str(x)+".wav", mydata, samplerate)
+    time.sleep(0.5)
