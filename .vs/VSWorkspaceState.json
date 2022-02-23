@@ -5,6 +5,6 @@
     "\\chatbot\\chat_model",
     "\\chatbot\\chat_model\\variables"
   ],
-  "SelectedNode": "\\chatbot\\train_chatbot.py",
+  "SelectedNode": "\\chatbot\\chat.py",
   "PreviewInSolutionExplorer": false
 }
