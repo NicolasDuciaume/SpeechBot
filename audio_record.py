@@ -7,7 +7,7 @@ import time
 
 samplerate = 16000  
 duration = 1.5 # seconds
-filename = './input/audio/yes/yes'
+filename = './input/audio/worth/worth'
 #filename = './input/rerecord/yes'
 
 for x in range(50):
