@@ -1,9 +1,19 @@
 from ctypes import sizeof
 from keras.models import load_model
 import numpy as np
-model=load_model('D:/speech2/best_model.hdf5')
+model=load_model('D:/SYSC4705/SpeechBot/best_model.hdf5')
+import sounddevice as sd
+import soundfile as sf
+import librosa
+import os
+import IPython.display as ipd
+import numpy as np
+import time
 
-all_label = ["yes", "no", "up", "down","left", "right", "on", "off", "stop", "go"]
+filename = 'D:/SYSC4705/SpeechBot/output/'
+filename_full_recording = "D:/SYSC4705/SpeechBot/input/"
+
+all_label = ["abandon", "a", "ability", "above", "able", "abortion", "about", "abroad","absence","absolute","absolutely","absorb","abuse","academic","accept","access","accident","accompany","accomplish","according","account","accurate"]
 
 from sklearn.preprocessing import LabelEncoder
 le = LabelEncoder()
@@ -16,69 +26,15 @@ def predict(audio):
     index=np.argmax(prob[0])
     return classes[index]
 
-import sounddevice as sd
-import soundfile as sf
-import librosa
-import os
-import IPython.display as ipd
-import time
 
-samplerate = 16000  
-duration = 10 # seconds
-filename = 'D:/speech2/'
-
-def pad_audio(data, fs, T):
-    # Calculate target number of samples
-    N_tar = fs
-    # Calculate number of zero samples to append
-    shape = data.shape
-    # Create the target shape    
-    N_pad = N_tar - shape[0]
-    #print("Padding with %s seconds of silence" % str(N_pad/fs) )
-    shape = (N_pad,) + shape[1:]
-    # Stack only if there is something to append    
-    if shape[0] > 0:                
-        if len(shape) > 1:
-            return np.vstack((np.zeros(shape),
-                              data))
-        else:
-            return np.hstack((np.zeros(shape),
-                              data))
-    else:
-        return data
+x = 5
 
 
-
-print("start")
-mydata = sd.rec(int(samplerate * duration), samplerate=samplerate,
-    channels=1, blocking=True)
-    
-sd.wait()
-sf.write(filename+"oldSong.wav", mydata, samplerate)
-print("end")
-#time.sleep(0)
-
-os.listdir('D:/speech2')
-filepath='D:/speech2'
+for z in range(0,x):
+    samples, sample_rate = librosa.load(filename+str(z) + ".wav", sr = 16000)
+    if((librosa.get_duration(y=samples, sr=sample_rate)) <= 1.5):
+        samples = librosa.resample(samples, sample_rate * 1.5, 8000)
+        ipd.Audio(samples,rate=8000)
+        print(predict(samples))
 
 
-from pydub import AudioSegment
-from pydub.silence import split_on_silence
- 
-sound_file = AudioSegment.from_wav(filename+"oldSong.wav")
-audio_chunks = split_on_silence(sound_file, min_silence_len=500, silence_thresh=-40 )
- 
-predicts = []
- 
-for i, chunk in enumerate(audio_chunks):
-   out_file = filepath+ "chunk{0}.wav".format(i)
-   print("exporting", out_file)
-   chunk.export(out_file, format="wav")
-   samples, sample_rate = librosa.load(filename+'chunk{0}.wav', sr = 16000)
-   samples = librosa.resample(samples, sample_rate, 8000)
-   ipd.Audio(samples,rate=8000)
-   predicts.append(predict(samples))
-   
-
-
-print(predicts)

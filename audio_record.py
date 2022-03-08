@@ -19,7 +19,7 @@ def pad_audio(data, fs, T):
     shape = data.shape
     # Create the target shape    
     N_pad = N_tar - shape[0]
-    #print("Padding with %s seconds of silence" % str(N_pad/fs) )
+    print("Padding with %s seconds of silence" % str(N_pad/fs) )
     shape = (N_pad,) + shape[1:]
     # Stack only if there is something to append    
     if shape[0] > 0:                
@@ -59,11 +59,9 @@ for i, chunk in enumerate(audio_chunks):
     out_file = filename+ str(i) +".wav"
     chunk.export(out_file, format="wav")
     samples, sample_rate = librosa.load(filename+ str(i) +".wav", sr = 16000)
-    time = 1.5 - librosa.get_duration(y=samples, sr=sample_rate)
-    time = time * 1000
-    #updated_samples = pad_audio(samples, sample_rate, 1.5);
-    #sf.write(filename+ str(i) +".wav", updated_samples, samplerate)
-    silence = AudioSegment.silent(duration=time)
+    time_add = 1.5 - librosa.get_duration(y=samples, sr=sample_rate)
+    time_add = time_add * 1000
+    silence = AudioSegment.silent(duration=time_add)
     audio = AudioSegment.from_wav(out_file)
     padded = audio + silence
     padded.export(out_file, format='wav')

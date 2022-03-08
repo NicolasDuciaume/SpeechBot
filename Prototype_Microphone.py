@@ -21,12 +21,14 @@ import soundfile as sf
 import librosa
 import os
 import IPython.display as ipd
+import numpy as np
 import time
 
 samplerate = 16000  
-duration = 20 # seconds
-filename = 'D:/SYSC4705/SpeechBot/output'
+duration = 10 # seconds
+filename = 'D:/SYSC4705/SpeechBot/output/'
 filename_full_recording = "D:/SYSC4705/SpeechBot/input/"
+#filename = './input/rerecord/yes'
 
 def pad_audio(data, fs, T):
     # Calculate target number of samples
@@ -47,9 +49,8 @@ def pad_audio(data, fs, T):
                               data))
     else:
         return data
-
-
-
+    
+    
 print("start")
 time.sleep(0.3)
 mydata = sd.rec(int(samplerate * duration), samplerate=samplerate,
@@ -57,8 +58,6 @@ mydata = sd.rec(int(samplerate * duration), samplerate=samplerate,
 sd.wait()
 sf.write(filename_full_recording+"oldSong.wav", mydata, samplerate)
 print("end")
-    
-
 
 from pydub import AudioSegment
 from pydub.silence import split_on_silence
@@ -78,23 +77,22 @@ for i, chunk in enumerate(audio_chunks):
     out_file = filename+ str(i) +".wav"
     chunk.export(out_file, format="wav")
     samples, sample_rate = librosa.load(filename+ str(i) +".wav", sr = 16000)
-    time = 1.5 - librosa.get_duration(y=samples, sr=sample_rate)
-    time = time * 1000
-    #updated_samples = pad_audio(samples, sample_rate, 1.5);
-    #sf.write(filename+ str(i) +".wav", updated_samples, samplerate)
-    silence = AudioSegment.silent(duration=time)
+    time_add = 1.5 - librosa.get_duration(y=samples, sr=sample_rate)
+    time_add = time_add * 1000
+    silence = AudioSegment.silent(duration=time_add)
     audio = AudioSegment.from_wav(out_file)
     padded = audio + silence
-    print(predict(padded))
-    #padded.export(out_file, format='wav')
+    padded.export(out_file, format='wav')
     x = x + 1
+   
+time.sleep(2)
+
+for z in range(0,x):
+    samples, sample_rate = librosa.load(filename+str(z) + ".wav", sr = 16000)
+    if((librosa.get_duration(y=samples, sr=sample_rate)) <= 1.5):
+        samples = librosa.resample(samples, sample_rate * 1.5, 8000)
+        ipd.Audio(samples,rate=8000)
+        print(predict(samples))
 
 
 
-
-#for i in range(x):
-    #samples, sample_rate = librosa.load(filename+'/split/chunk{i}.wav', sr = 16000)
-    #samples = librosa.resample(samples, sample_rate * duration, 8000)
-    #ipd.Audio(samples,rate=8000)
-    #print("You said:" + predict(samples))
-    #time.sleep(2)
