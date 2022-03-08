@@ -24,8 +24,9 @@ import IPython.display as ipd
 import time
 
 samplerate = 16000  
-duration = 1.5 # seconds
-filename = 'D:/speech2/'
+duration = 20 # seconds
+filename = 'D:/SYSC4705/SpeechBot/output'
+filename_full_recording = "D:/SYSC4705/SpeechBot/input/"
 
 def pad_audio(data, fs, T):
     # Calculate target number of samples
@@ -50,54 +51,50 @@ def pad_audio(data, fs, T):
 
 
 print("start")
+time.sleep(0.3)
 mydata = sd.rec(int(samplerate * duration), samplerate=samplerate,
     channels=1, blocking=True)
-    
 sd.wait()
-sf.write(filename+"oldSong.wav", mydata, samplerate)
+sf.write(filename_full_recording+"oldSong.wav", mydata, samplerate)
 print("end")
-#time.sleep(0)
-
-samples, sample_rate = librosa.load(filename+'oldSong.wav', sr = 16000)
-samples = librosa.resample(samples, sample_rate * duration, 8000)
-ipd.Audio(samples,rate=8000)
-print(predict(samples))
-
-os.listdir('D:/speech2')
-filepath='D:/speech2'
-
-###
-#t1 = 0
-#t2 = 500
-
-#from pydub import AudioSegment 
-
-#predicts = []
-
-#for y in range(89):
-    #newAudio = AudioSegment.from_wav(filename+"oldSong.wav")
-    #newAudio = newAudio[t1:t2]
-    #newAudio.export(filename+'newSong.wav', format="wav")
-    #samples, sample_rate = librosa.load(filename+'newSong.wav', sr = 16000)
-    #samples = librosa.resample(samples, sample_rate, 8000)
-    #ipd.Audio(samples,rate=8000)
-    #predicts.append(predict(samples))
-   # print(predict(samples))
-    #t1 = t1 * 10 #Works in milliseconds
-    #t2 = t2 * 10
     
-#current = ""
-#occurence = 0
-#real_words = ["test"]
-
-#for y in range(len(predicts)):
-#    if current == predicts[y]:
-#        occurence = occurence + 1
-#        if occurence == 5:
-#            if real_words[len(real_words) - 1] != predicts[y]:
-#                real_words.append(current)
-#    else:
-#        current == predicts[y]
 
 
-#print(real_words)
+from pydub import AudioSegment
+from pydub.silence import split_on_silence
+
+sound_file = AudioSegment.from_wav(filename_full_recording+"oldSong.wav")
+audio_chunks = split_on_silence(sound_file, 
+    # must be silent for at least half a second
+    min_silence_len=700,
+
+    # consider it silent if quieter than -16 dBFS
+    silence_thresh=-40
+)
+
+x = 0
+
+for i, chunk in enumerate(audio_chunks):
+    out_file = filename+ str(i) +".wav"
+    chunk.export(out_file, format="wav")
+    samples, sample_rate = librosa.load(filename+ str(i) +".wav", sr = 16000)
+    time = 1.5 - librosa.get_duration(y=samples, sr=sample_rate)
+    time = time * 1000
+    #updated_samples = pad_audio(samples, sample_rate, 1.5);
+    #sf.write(filename+ str(i) +".wav", updated_samples, samplerate)
+    silence = AudioSegment.silent(duration=time)
+    audio = AudioSegment.from_wav(out_file)
+    padded = audio + silence
+    print(predict(padded))
+    #padded.export(out_file, format='wav')
+    x = x + 1
+
+
+
+
+#for i in range(x):
+    #samples, sample_rate = librosa.load(filename+'/split/chunk{i}.wav', sr = 16000)
+    #samples = librosa.resample(samples, sample_rate * duration, 8000)
+    #ipd.Audio(samples,rate=8000)
+    #print("You said:" + predict(samples))
+    #time.sleep(2)
