@@ -24,8 +24,9 @@ import IPython.display as ipd
 import time
 
 samplerate = 16000  
-duration = 10 # seconds
-filename = 'D:/speech2/'
+duration = 20 # seconds
+filename = 'D:/SYSC4705/SpeechBot/output'
+filename_full_recording = "D:/SYSC4705/SpeechBot/input/"
 
 def pad_audio(data, fs, T):
     # Calculate target number of samples
@@ -54,7 +55,7 @@ time.sleep(0.3)
 mydata = sd.rec(int(samplerate * duration), samplerate=samplerate,
     channels=1, blocking=True)
 sd.wait()
-sf.write(filename+"oldSong.wav", mydata, samplerate)
+sf.write(filename_full_recording+"oldSong.wav", mydata, samplerate)
 print("end")
     
 
@@ -62,10 +63,10 @@ print("end")
 from pydub import AudioSegment
 from pydub.silence import split_on_silence
 
-sound_file = AudioSegment.from_wav(filename+"oldSong.wav")
+sound_file = AudioSegment.from_wav(filename_full_recording+"oldSong.wav")
 audio_chunks = split_on_silence(sound_file, 
     # must be silent for at least half a second
-    min_silence_len=650,
+    min_silence_len=700,
 
     # consider it silent if quieter than -16 dBFS
     silence_thresh=-40
@@ -74,10 +75,21 @@ audio_chunks = split_on_silence(sound_file,
 x = 0
 
 for i, chunk in enumerate(audio_chunks):
-    out_file = filename+"split/chunk"+ str(i) +".wav"
+    out_file = filename+ str(i) +".wav"
     chunk.export(out_file, format="wav")
-    #write_wav(out_file, samplerate, chunk)
+    samples, sample_rate = librosa.load(filename+ str(i) +".wav", sr = 16000)
+    time = 1.5 - librosa.get_duration(y=samples, sr=sample_rate)
+    time = time * 1000
+    #updated_samples = pad_audio(samples, sample_rate, 1.5);
+    #sf.write(filename+ str(i) +".wav", updated_samples, samplerate)
+    silence = AudioSegment.silent(duration=time)
+    audio = AudioSegment.from_wav(out_file)
+    padded = audio + silence
+    print(predict(padded))
+    #padded.export(out_file, format='wav')
     x = x + 1
+
+
 
 
 #for i in range(x):

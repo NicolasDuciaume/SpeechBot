@@ -59,9 +59,14 @@ for i, chunk in enumerate(audio_chunks):
     out_file = filename+ str(i) +".wav"
     chunk.export(out_file, format="wav")
     samples, sample_rate = librosa.load(filename+ str(i) +".wav", sr = 16000)
-    time = duration - librosa.get_duration(y=samples, sr=sample_rate)
-    updated_samples = pad_audio(samples, sample_rate, time);
-    sf.write(filename+ str(i) +".wav", updated_samples, samplerate)
+    time = 1.5 - librosa.get_duration(y=samples, sr=sample_rate)
+    time = time * 1000
+    #updated_samples = pad_audio(samples, sample_rate, 1.5);
+    #sf.write(filename+ str(i) +".wav", updated_samples, samplerate)
+    silence = AudioSegment.silent(duration=time)
+    audio = AudioSegment.from_wav(out_file)
+    padded = audio + silence
+    padded.export(out_file, format='wav')
     x = x + 1
    
 
