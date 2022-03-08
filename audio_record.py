@@ -59,6 +59,9 @@ for i, chunk in enumerate(audio_chunks):
     out_file = filename+ str(i) +".wav"
     chunk.export(out_file, format="wav")
     samples, sample_rate = librosa.load(filename+ str(i) +".wav", sr = 16000)
+    updated_samples = pad_audio(samples, int(sample_rate * 0.75), 0.75);
+    sf.write(out_file, updated_samples, sample_rate)
+    samples, sample_rate = librosa.load(filename+ str(i) +".wav", sr = 16000)
     time_add = 1.5 - librosa.get_duration(y=samples, sr=sample_rate)
     time_add = time_add * 1000
     silence = AudioSegment.silent(duration=time_add)

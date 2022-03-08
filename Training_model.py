@@ -86,10 +86,10 @@ model.summary()
 
 model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
 
-es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=10, min_delta=0.0001) 
+es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=25, min_delta=0.0001) 
 mc = ModelCheckpoint('D:/SYSC4705/SpeechBot/best_model.hdf5', monitor='val_accuracy', verbose=1, save_best_only=True, mode='max')
 
-history=model.fit(x_tr, y_tr ,epochs=50, callbacks=[es,mc], batch_size=4, validation_data=(x_val,y_val))
+history=model.fit(x_tr, y_tr ,epochs=80, callbacks=[es,mc], batch_size=4, validation_data=(x_val,y_val))
 
 from matplotlib import pyplot
 pyplot.plot(history.history['loss'], label='train')
