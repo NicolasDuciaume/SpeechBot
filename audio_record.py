@@ -7,8 +7,8 @@ import numpy as np
 import time
 
 samplerate = 16000  
-duration = 80 # seconds
-filename = 'D:/SYSC4705/SpeechBot/input/audio/of/of'
+duration = 70 # seconds
+filename = 'D:/SYSC4705/SpeechBot/input/audio/he/he'
 filename_full_recording = "D:/SYSC4705/SpeechBot/input/"
 #filename = './input/rerecord/yes'
 
