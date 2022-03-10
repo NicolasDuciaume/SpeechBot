@@ -8,7 +8,7 @@ import time
 
 samplerate = 16000  
 duration = 70 # seconds
-filename = 'D:/SYSC4705/SpeechBot/input/audio/he/he'
+filename = 'D:/SYSC4705/SpeechBot/input/audio/this/this'
 filename_full_recording = "D:/SYSC4705/SpeechBot/input/"
 #filename = './input/rerecord/yes'
 
@@ -64,11 +64,13 @@ for i, chunk in enumerate(audio_chunks):
     samples, sample_rate = librosa.load(filename+ str(i) +".wav", sr = 16000)
     time_add = 1.5 - librosa.get_duration(y=samples, sr=sample_rate)
     time_add = time_add * 1000
-    silence = AudioSegment.silent(duration=time_add)
-    audio = AudioSegment.from_wav(out_file)
-    padded = audio + silence
-    padded.export(out_file, format='wav')
-    x = x + 1
+    if time_add >= 0:
+        silence = AudioSegment.silent(duration=time_add)
+        audio = AudioSegment.from_wav(out_file)
+        padded = audio + silence
+        padded.export(out_file, format='wav')
+        x = x + 1
+    
    
 
 
