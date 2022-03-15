@@ -1,6 +1,9 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.uic import loadUi
+import sys
+sys.path.insert(1, 'D:/SYSC4705/SpeechBot')
+import Prototype_Microphone as PM
 
 
 def updateCounter(tet):
@@ -13,7 +16,7 @@ def updateCounter(tet):
 class MainMenu(QMainWindow):
     def __init__(self):
         super(MainMenu, self).__init__()
-        loadUi('MainMenu.ui', self)
+        loadUi('D:/SYSC4705/SpeechBot/ui updated/MainMenu.ui', self)
         self.setWindowTitle('Main Menu')
         self.voiceChat.clicked.connect(lambda: updateCounter("voiceChat"))
         self.textChat.clicked.connect(lambda: updateCounter("textChat"))
@@ -26,10 +29,16 @@ def MainScreen():
 class TextChatBot(QMainWindow):
     def __init__(self):
         super(TextChatBot, self).__init__()
-        loadUi('textChatBot.ui', self)
+        loadUi('D:/SYSC4705/SpeechBot/ui updated/textChatBot.ui', self)
         self.setWindowTitle('Text Chat Bot')
         self.send.clicked.connect(self.onSendCl)
+        self.start.clicked.connect(self.StartPressed)
         self.mainScreen.clicked.connect(MainScreen)
+        
+    def StartPressed(self):
+        print("Start button pressed")
+        text = PM.record_and_predict()
+        self.sendtext.setText(text)
 
     def onSendCl(self):
         save = self.sendtext.text()
@@ -41,7 +50,7 @@ class TextChatBot(QMainWindow):
 class VoiceChatBot(QMainWindow):
     def __init__(self):
         super(VoiceChatBot, self).__init__()
-        loadUi('voiceChatBot.ui', self)
+        loadUi('D:/SYSC4705/SpeechBot/ui updated/voiceChatBot.ui', self)
         self.setWindowTitle('Voice Chat Bot')
         self.start.clicked.connect(self.StartPressed)
         self.end.clicked.connect(self.EndPressed)

@@ -8,7 +8,7 @@ import time
 
 samplerate = 16000  
 duration = 70 # seconds
-filename = 'D:/SYSC4705/SpeechBot/input/audio/this/this'
+filename = 'D:/SYSC4705/SpeechBot/input/audio/by/by'
 filename_full_recording = "D:/SYSC4705/SpeechBot/input/"
 #filename = './input/rerecord/yes'
 
