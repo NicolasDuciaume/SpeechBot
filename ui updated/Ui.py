@@ -43,8 +43,9 @@ class TextChatBot(QMainWindow):
     def onSendCl(self):
         save = self.sendtext.text()
         self.sendtext.setText("")
-        inp = input("Enter ChatBot Response: ")  # Replace with Function to generate bots response
+        inp = "" #put function which takes the input text (save) and returns output
         self.sendandrec.append('\n' + 'you: ' + save + '\n' + 'Bot: ' + inp)
+        #put function that converts the bots texts to speech
 
 
 class VoiceChatBot(QMainWindow):
