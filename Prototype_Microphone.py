@@ -1,7 +1,7 @@
 from ctypes import sizeof
 from keras.models import load_model
 import numpy as np
-model=load_model('D:/SYSC4705/SpeechBot/best_model.hdf5')
+model=load_model('./best_model.hdf5')
 
 all_label = ["abandon", "a", "ability", "above", "able", "abortion", "about", "abroad","absence","absolute","absolutely","absorb","abuse","academic","accept","access","accident","accompany","accomplish","according","account","accurate"]
 
@@ -26,8 +26,8 @@ import time
 
 samplerate = 16000  
 duration = 10 # seconds
-filename = 'D:/SYSC4705/SpeechBot/output/'
-filename_full_recording = "D:/SYSC4705/SpeechBot/input/"
+filename = './output/'
+filename_full_recording = "./input/"
 #filename = './input/rerecord/yes'
 
 def pad_audio(data, fs, T):
