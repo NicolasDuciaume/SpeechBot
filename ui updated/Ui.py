@@ -38,7 +38,18 @@ class TextChatBot(QMainWindow):
     def StartPressed(self):
         print("Start button pressed")
         text = PM.record_and_predict()
-        self.sendtext.setText(text)
+        text2 = PM.different_rec()
+        x = text.split()
+        y = text2.split()
+        count = 0
+        for z in range(len(x)):
+            if x[z] != y[z]:
+                count = count + 1
+                
+        if(count >= 3):
+            self.sendtext.setText(text2)
+        else:
+            self.sendtext.setText(text)
 
     def onSendCl(self):
         save = self.sendtext.text()

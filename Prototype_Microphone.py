@@ -3,7 +3,7 @@ from keras.models import load_model
 import numpy as np
 model=load_model('D:/SYSC4705/SpeechBot/best_model.hdf5')
 
-all_label = ["abandon", "a", "ability", "above", "able", "abortion", "about", "abroad","absence","absolute","absolutely","absorb","abuse","academic","accept","access","accident","accompany","accomplish","according","account","accurate"]
+all_label = ["hello", "hi", "hey", "would", "with", "to", "this", "on", "is", "it", "no","yes", "your", "you", "that", "not", "Nicolas", "Nazifa", "in", "I", "for", "do", "but", "as", "again", "afternoon", "and", "age", "a", "able", "about", "by","have" ]
 
 from sklearn.preprocessing import LabelEncoder
 le = LabelEncoder()
@@ -99,8 +99,21 @@ def record_and_predict():
         if((librosa.get_duration(y=samples, sr=sample_rate)) <= 1.5):
             samples = librosa.resample(samples, sample_rate * 1.5, 8000)
             ipd.Audio(samples,rate=8000)
-            text = text + predict(samples)
+            text = text + predict(samples) + " "
     
     return text
 
+
+def different_rec():
+    import speech_recognition as sr
+    
+    r = sr.Recognizer()
+    
+    with sr.AudioFile(filename_full_recording+"oldSong.wav") as source:
+        # listen for the data (load audio to memory)
+        audio_data = r.record(source)
+        # recognize (convert from speech to text)
+        text = r.recognize_google(audio_data)
+        return text
+    
 

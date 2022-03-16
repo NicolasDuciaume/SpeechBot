@@ -10,7 +10,7 @@ import warnings
 warnings.filterwarnings("ignore")
 os.listdir('D:/SYSC4705/SpeechBot/input')
 
-labels=["abandon", "a", "ability", "above", "able", "abortion", "about", "abroad","absence","absolute","absolutely","absorb","abuse","academic","accept","access","accident","accompany","accomplish","according","account","accurate"]
+labels=["hello", "hi", "hey", "would", "with", "to", "this", "on", "is", "it", "no","yes", "your", "you", "that", "not", "Nicolas", "Nazifa", "in", "I", "for", "do", "but", "as", "again", "afternoon", "and", "age", "a", "able", "about", "by","have"]
 
 train_audio_path = 'D:/SYSC4705/SpeechBot/input/audio/'
 duration = 1.5
