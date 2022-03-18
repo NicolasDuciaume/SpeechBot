@@ -18,7 +18,7 @@ class MainMenu(QMainWindow):
         super(MainMenu, self).__init__()
         loadUi('./ui updated/MainMenu.ui', self)
         self.setWindowTitle('Main Menu')
-        self.voiceChat.clicked.connect(lambda: updateCounter("voiceChat"))
+        self.voiceChat.clicked.connect(app.quit)
         self.textChat.clicked.connect(lambda: updateCounter("textChat"))
 
 
@@ -78,6 +78,8 @@ class VoiceChatBot(QMainWindow):
         # self.sendandrec.append('\n' + 'you: ' + RECORDED_AUDIO + '\n' + 'Bot: ' + inp)
 
 
+
+
 if __name__ == "__main__":
     import sys
 
@@ -86,13 +88,13 @@ if __name__ == "__main__":
 
     Screen1 = MainMenu()
     Screen2 = TextChatBot()
-    Screen3 = VoiceChatBot()
+    # Screen3 = VoiceChatBot()
 
     widget.addWidget(Screen1)
     widget.addWidget(Screen2)
-    widget.addWidget(Screen3)
+    # widget.addWidget(Screen3)
 
-    widget.setFixedWidth(400)
-    widget.setFixedHeight(350)
+    widget.setFixedWidth(500)
+    widget.setFixedHeight(500)
     widget.show()
     sys.exit(app.exec_())
