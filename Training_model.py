@@ -8,11 +8,11 @@ from scipy.io import wavfile
 import warnings
 
 warnings.filterwarnings("ignore")
-os.listdir('D:/SYSC4705/SpeechBot/input')
+os.listdir('./input')
 
 labels=["hello", "hi", "hey", "would", "with", "to", "this", "on", "is", "it", "no","yes", "your", "you", "that", "not", "Nicolas", "Nazifa", "in", "I", "for", "do", "but", "as", "again", "afternoon", "and", "age", "a", "able", "about", "by","have"]
 
-train_audio_path = 'D:/SYSC4705/SpeechBot/input/audio/'
+train_audio_path = './input/audio/'
 duration = 1.5
 all_wave = []
 all_label = []
@@ -87,7 +87,7 @@ model.summary()
 model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
 
 es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=25, min_delta=0.0001) 
-mc = ModelCheckpoint('D:/SYSC4705/SpeechBot/best_model.hdf5', monitor='val_accuracy', verbose=1, save_best_only=True, mode='max')
+mc = ModelCheckpoint('./best_model.hdf5', monitor='val_accuracy', verbose=1, save_best_only=True, mode='max')
 
 history=model.fit(x_tr, y_tr ,epochs=80, callbacks=[es,mc], batch_size=4, validation_data=(x_val,y_val))
 

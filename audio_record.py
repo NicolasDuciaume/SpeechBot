@@ -8,8 +8,8 @@ import time
 
 samplerate = 16000  
 duration = 70 # seconds
-filename = 'D:/SYSC4705/SpeechBot/input/audio/by/by'
-filename_full_recording = "D:/SYSC4705/SpeechBot/input/"
+filename = './input/audio/by/by'
+filename_full_recording = "./input/"
 #filename = './input/rerecord/yes'
 
 def pad_audio(data, fs, T):

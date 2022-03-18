@@ -1,7 +1,7 @@
 from ctypes import sizeof
 from keras.models import load_model
 import numpy as np
-model=load_model('D:/SYSC4705/SpeechBot/best_model.hdf5')
+model=load_model('./best_model.hdf5')
 import sounddevice as sd
 import soundfile as sf
 import librosa
@@ -10,8 +10,8 @@ import IPython.display as ipd
 import numpy as np
 import time
 
-filename = 'D:/SYSC4705/SpeechBot/output/'
-filename_full_recording = "D:/SYSC4705/SpeechBot/input/"
+filename = './output/'
+filename_full_recording = "./input/"
 
 all_label = ["abandon", "a", "ability", "above", "able", "abortion", "about", "abroad","absence","absolute","absolutely","absorb","abuse","academic","accept","access","accident","accompany","accomplish","according","account","accurate"]
 
