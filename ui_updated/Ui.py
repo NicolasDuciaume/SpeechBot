@@ -36,27 +36,15 @@ class TextChatBot(QMainWindow):
         self.mainScreen.clicked.connect(MainScreen)
         
     def StartPressed(self):
-        print("Start button pressed")
-        text = PM.record_and_predict()
-        text2 = PM.different_rec()
-        x = text.split()
-        y = text2.split()
-        count = 0
-        for z in range(len(x)):
-            if x[z] != y[z]:
-                count = count + 1
-                
-        if(count >= 3):
-            self.sendtext.setText(text2)
-        else:
-            self.sendtext.setText(text)
+        self.sendtext.setText(PM.Combination_Predict())
+    
 
     def onSendCl(self):
         save = self.sendtext.text()
         self.sendtext.setText("")
-        inp = "" #put function which takes the input text (save) and returns output
+        inp = input("Enter ChatBot Response: ")
         self.sendandrec.append('\n' + 'you: ' + save + '\n' + 'Bot: ' + inp)
-        #put function that converts the bots texts to speech
+        tts.input_txt(inp)
 
 
 class VoiceChatBot(QMainWindow):

@@ -14,7 +14,8 @@ classes= list(le.classes_)
 def predict(audio):
     prob=model.predict(audio.reshape(1,8000,1))
     index=np.argmax(prob[0])
-    return classes[index]
+    max = np.argmax(prob)
+    return classes[index] + " " + str(max)
 
 import sounddevice as sd
 import soundfile as sf
@@ -66,10 +67,10 @@ def record_and_predict():
     sound_file = AudioSegment.from_wav(filename_full_recording+"oldSong.wav")
     audio_chunks = split_on_silence(sound_file, 
         # must be silent for at least half a second
-        min_silence_len=500,
+        min_silence_len=300,
 
         # consider it silent if quieter than -16 dBFS
-        silence_thresh=-38
+        silence_thresh=-30
     )
 
     x = 0
@@ -116,4 +117,31 @@ def different_rec():
         text = r.recognize_google(audio_data)
         return text
     
+
+def Combination_Predict():
+    text1 = record_and_predict()
+    text2 = different_rec()
+    x = text1.split()
+    y = text2.split()
+    words = []
+    prob = []
+    prediction = ""
+    for z in range(0,len(x)):
+        if z % 2 == 0:
+            words.append(x[z])
+        else:
+            prob.append(x[z])
+    
+    for count in range(0,len(y)):
+        if(len(prob) > count):
+            if (int(prob[count]) >= 80) and (prob[count] is not None):
+                prediction = prediction + words[count]
+            else:
+                prediction = prediction + " " + y[count]
+        else:
+            prediction = prediction + " " + y[count]
+            
+    return prediction
+
+
 

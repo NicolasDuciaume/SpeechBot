@@ -20,6 +20,19 @@ def input_txt_file():
     engine.runAndWait()
     print("Your audio file has been saved!")
 
+
+from pydub import AudioSegment
+from pydub.playback import play
+
+def input_txt(x):
+    contents = x
+    engine.save_to_file(contents, "test.mp3")
+    engine.runAndWait()
+    print("Your audio file has been saved!")
+    song = AudioSegment.from_wav("test.mp3")
+    play(song)
+
 # input_console()
 # input_txt_file()
 
+#input_txt("Hello Chris")
