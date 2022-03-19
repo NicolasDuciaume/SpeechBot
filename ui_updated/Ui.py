@@ -2,9 +2,14 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.uic import loadUi
 import sys
+import os
 sys.path.insert(1, './')
 import STT.Prototype_Microphone as PM
 import TTS.TTS as tts
+import chatbot.chat as cb
+
+file_dir = "C:\\Users\\anwar_tmk\\Documents\\Carleton\\4th Year\\4th year project\\SpeechBot\\ui_updated"
+
 
 def updateCounter(tet):
     if tet == "voiceChat":
@@ -16,7 +21,7 @@ def updateCounter(tet):
 class MainMenu(QMainWindow):
     def __init__(self):
         super(MainMenu, self).__init__()
-        loadUi('./ui_updated/MainMenu.ui', self)
+        loadUi(os.path.join(file_dir, 'MainMenu.ui'), self)
         self.setWindowTitle('Main Menu')
         self.voiceChat.clicked.connect(app.quit)
         self.textChat.clicked.connect(lambda: updateCounter("textChat"))
@@ -29,7 +34,7 @@ def MainScreen():
 class TextChatBot(QMainWindow):
     def __init__(self):
         super(TextChatBot, self).__init__()
-        loadUi('./ui_updated/textChatBot.ui', self)
+        loadUi(os.path.join(file_dir, 'textChatBot.ui'), self)
         self.setWindowTitle('Text Chat Bot')
         self.send.clicked.connect(self.onSendCl)
         self.start.clicked.connect(self.StartPressed)
@@ -41,16 +46,17 @@ class TextChatBot(QMainWindow):
 
     def onSendCl(self):
         save = self.sendtext.text()
+        print("user input: {}".format(save))
         self.sendtext.setText("")
-        inp = input("Enter ChatBot Response: ")
-        self.sendandrec.append('\n' + 'you: ' + save + '\n' + 'Bot: ' + inp)
-        tts.input_txt(inp)
+        reply = cb.generate_response(save) # send user input to chatbot and receive reply
+        self.sendandrec.append('\n' + 'you: ' + save + '\n' + 'Bot: ' + reply)
+        tts.input_txt(reply)
 
 
 class VoiceChatBot(QMainWindow):
     def __init__(self):
         super(VoiceChatBot, self).__init__()
-        loadUi('./ui_updated/voiceChatBot.ui', self)
+        loadUi(os.path.join(file_dir, 'voiceChatBot.ui'), self)
         self.setWindowTitle('Voice Chat Bot')
         self.start.clicked.connect(self.StartPressed)
         self.end.clicked.connect(self.EndPressed)
@@ -61,9 +67,10 @@ class VoiceChatBot(QMainWindow):
 
     def EndPressed(self):
         print("End button Pressed")
-        # inp = input("Enter ChatBot Response: ")  Replace with Function to generate bots response
+        # TODO: what needs to be changes here
+        # reply = cb.generate_response(user_inp)  # send user input to chatbot and receive reply
         # ADD RECORDED TEXT FROM THE SPEECH IN PLACE OF RECORDED_AUDIO
-        # self.sendandrec.append('\n' + 'you: ' + RECORDED_AUDIO + '\n' + 'Bot: ' + inp)
+        # self.sendandrec.append('\n' + 'you: ' + RECORDED_AUDIO + '\n' + 'Bot: ' + reply)
     
 
 
