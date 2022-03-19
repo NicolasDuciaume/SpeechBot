@@ -2,10 +2,9 @@ from ctypes import sizeof
 from keras.models import load_model
 import numpy as np
 import os
-file_dir = "C:\\Users\\anwar_tmk\\Documents\\Carleton\\4th Year\\4th year project\\SpeechBot\\STT\\"
-model=load_model(os.path.join(file_dir, 'best_model.hdf5'))
+model=load_model('D:/SYSC4705/SpeechBot/STT/best_model.hdf5')
 
-all_label = ["hello", "hi", "hey", "would", "with", "to", "this", "on", "is", "it", "no","yes", "your", "you", "that", "not", "Nicolas", "Nazifa", "in", "I", "for", "do", "but", "as", "again", "afternoon", "and", "age", "a", "able", "about", "by","have" ]
+all_label = os.listdir("D:/SYSC4705/SpeechBot/STT/input/audio")
 
 from sklearn.preprocessing import LabelEncoder
 le = LabelEncoder()
@@ -22,16 +21,16 @@ def predict(audio):
 import sounddevice as sd
 import soundfile as sf
 import librosa
+import os
 import IPython.display as ipd
 import numpy as np
 import time
 
 samplerate = 16000  
-duration = 10 # seconds
-
-filename = os.path.join(file_dir, 'output')
-filename_full_recording = os.path.join(file_dir, "input")
-
+duration = 7 # seconds
+filename = 'D:/SYSC4705/SpeechBot/STT/output/'
+filename_full_recording = "D:/SYSC4705/SpeechBot/STT/input/"
+#filename = './input/rerecord/yes'
 
 def pad_audio(data, fs, T):
     # Calculate target number of samples
@@ -107,7 +106,7 @@ def record_and_predict():
     return text
 
 
-def different_rec():
+def different_predict():
     import speech_recognition as sr
     
     r = sr.Recognizer()
@@ -122,7 +121,7 @@ def different_rec():
 
 def Combination_Predict():
     text1 = record_and_predict()
-    text2 = different_rec()
+    text2 = different_predict()
     x = text1.split()
     y = text2.split()
     words = []
@@ -144,6 +143,8 @@ def Combination_Predict():
             prediction = prediction + " " + y[count]
             
     return prediction
+
+
 
 
 

@@ -10,7 +10,7 @@ samplerate = 16000
 duration = 70 # seconds
 filename = './STT/input/audio/by/by'
 filename_full_recording = "./STT/input/"
-#filename = './input/rerecord/yes'
+
 
 def pad_audio(data, fs, T):
     # Calculate target number of samples
@@ -72,15 +72,3 @@ for i, chunk in enumerate(audio_chunks):
         x = x + 1
     
    
-
-
-#for x in range(50):
- #   print("\n{0}".format(x))
-  #  print("start")
-    
- #   mydata = sd.rec(int(samplerate * duration), samplerate=samplerate,
- #       channels=1, blocking=True)
-  #  print("end")
-  #  sd.wait()
-  #  sf.write(filename+str(x)+".wav", mydata, samplerate)
-  #  time.sleep(0.5)
