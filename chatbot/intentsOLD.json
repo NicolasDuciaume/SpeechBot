@@ -1,0 +1,136 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [ "Hi", "Hello", "Hey", "Good morning" ],
+      "responses": [ "Hello", "Hi", "Howdy" ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [ "Bye", "Goodbye" ],
+      "responses": [ "Have a nice day", "Bye" ]
+    },
+    {
+      "tag": "farewell-crocodile",
+      "patterns": [ "See you later alligator" ],
+      "responses": [ "In a while crocodile" ]
+    },
+    {
+      "tag": "thanks",
+      "patterns": [ "Thanks", "Thank you", "That is helpful", "Thank you so much" ],
+      "responses": [ "Happy to help", "Any time", "My pleasure", "You are most welcome", "no problem" ]
+    },
+    {
+      "tag": "about",
+      "patterns": [ "Who are you", "What are you" ],
+      "responses": [ "I am your chatbot", "I am a chatbot for your 4th year project" ]
+    },
+    {
+      "tag": "intro",
+      "patterns": [ "Nice to meet you", "Nice meeting you" ],
+      "responses": [ "Nice to meet you too" ]
+    },
+    {
+      "tag": "name",
+      "patterns": [ "What is your name", "What should I call you", "What name do you go by" ],
+      "responses": [ "You can call me Tom.", "I am Tom", "Just call me as Tom" ]
+    },
+    {
+      "tag": "smalltalk",
+      "patterns": [ "How are you", "How was your day" ],
+      "responses": [ "I am well how are you", "my day was awful", "my day was great" ]
+    },
+    {
+      "tag": "good-weather",
+      "patterns": [ "It is so sunny today", "I love this weather", "It is a nice day" ],
+      "responses": [ "I wish the weather was always like this", "This is the perfect weather for a walk" ]
+    },
+    {
+      "tag": "bad-weather",
+      "patterns": [ "This rain is crazy", "This is some weather we are having", "I hate the snow" ],
+      "responses": [ "I cannot wait for it to clear up", "I know right the weather is so unpredictable" ]
+    },
+    {
+      "tag": "sports",
+      "patterns": [
+        "Do you like sports",
+        "What is your favorite sport",
+        "Do you play basketball",
+        "Do you play football",
+        "Do you like ping pong",
+        "Do you play badminton",
+        "Do you like soccer",
+        "Do you like rugby",
+        "Do you like field hockey",
+        "Do you like swimming",
+        "Do you watch the olympics",
+        "Do you like golf",
+        "Do you like curling"
+      ],
+      "responses": [ "I enjoy a good hockey game from time to time", "I am designed by Canadians so naturally I like hockey", "I love football", "I am not big on sports to be honest", "I prefer watching", "I do not really have the body for sports" ]
+    },
+    {
+      "tag": "tv-movies",
+      "patterns": [ "What movies do you like", "Do you watch tv", "What is your favorite show?" ],
+      "responses": [ "I do not watch a lot", "My favourite movie is the Spongebob Squarepants Movie", "My favorite TV show is Squid Game" ]
+    },
+    {
+      "tag": "books",
+      "patterns": [ "Do you read", "What is your favourite book?", "I like to read" ],
+      "responses": [ "I love reading", "I hate reading.", "My favourite book is Oxford Dictionary" ]
+    },
+    {
+      "tag": "hobbies_general",
+      "patterns": [ "What hobbies do you have", "Do you have any hobbies", "What do you like to do in your free time", "What else do you like to do" ],
+      "responses": [ "I am a pretty good singer", "Graphic Design is my passion", "Nothing, I am a Chatbot..." ]
+    },
+    {
+      "tag": "default-convo-starter",
+      "patterns": [ "Nice", "Oh", "..." ],
+      "responses": [
+        "What hobbies do you like",
+        "Do you have plans this weekend?",
+        "If you could have dinner with anyone, dead or alive, who would it be",
+        "This is awkward",
+        "We should change the subject...",
+        "What are your thoughts on crypto",
+        "I like your outfit"
+      ]
+    },
+    {
+      "tag": "default-responses-affirmative",
+      "patterns": [ "yes", "yeah", "I am good", "that is good" ],
+      "responses": [ "Nice", "Awesome", "I love it" ]
+    },
+    {
+      "tag": "default-responses-negative",
+      "patterns": [ "unfortunately", "I do not care", "not great", "I am sad", "bad" ],
+      "responses": [ "Aw man", "I don't care", "That sucks", "I hate it", "too bad", "That is awful" ]
+    },
+    {
+      "tag": "default-responses-neutral",
+      "patterns": [ "Okay", "I do not know", "Oh" ],
+      "responses": [ "Oh", "Okay", "Cool" ]
+    },
+    {
+      "tag": "yes-no",
+      "patterns": [ "Do you like ", "Do you agree"],
+      "responses": [ "Yes", "No", "No comment" ]
+    },
+    {
+      "tag": "topic-change",
+      "patterns": [ "That is okay", "No problem" ],
+      "responses": [ "Thanks for understanding" ]
+    },
+    {
+      "tag": "weird",
+      "patterns": [ "that was random", "you are weird", "that is inappropriate" ],
+      "responses": [ "sorry", "my bad", "sorry, still learning how to be normal" ]
+    },
+    {
+      "tag": "laugh",
+      "patterns": [ "haha", "lol", "xD", "lmaoo", "hehe" ],
+      "responses": [ "hahaha" ]
+    }
+  ]
+}

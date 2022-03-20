@@ -1,6 +1,7 @@
-# This code is based on the Inference section from 
+# This code is based on the Inference section from
 # https://towardsdatascience.com/how-to-build-your-own-chatbot-using-deep-learning-bb41f970e281
 # This module allows the user to chat with the train chatbot model
+# check_all_messages() and message_probability() adapted from https://github.com/federicocotogno/text_recogniton_chat/blob/master/main.py
 
 import json
 import os.path
@@ -9,15 +10,14 @@ import numpy as np
 from tensorflow import keras
 from sklearn.preprocessing import LabelEncoder
 
-import colorama
-colorama.init()
-from colorama import Fore, Style, Back
-
 import random
 import pickle
 
+file_dir = "C:\\Users\\anwar_tmk\\Desktop\\chatbot"
+names = ["christopher", "nicolas", "nazifa", "mohammad"]
+curr_user = " "
+address_user_by_name = ["user name", "_default welcome", "general - bye", "greetings - nice to meet you"]
 
-file_dir = "C:\\Users\\anwar_tmk\\Documents\\Carleton\\4th Year\\4th year project\\SpeechBot\\chatbot"
 with open(os.path.join(file_dir, "intents.json")) as file:
     data = json.load(file)
 
@@ -38,8 +38,7 @@ with open(os.path.join(file_dir, "intents.json")) as file:
 
 def chat():
     while True:
-        print(Fore.CYAN + "User: " + Style.RESET_ALL, end="")
-        inp = input()
+        inp = input("User: ")
         if inp.lower() == "quit":
             break
         else:
@@ -47,16 +46,32 @@ def chat():
 
 
 def generate_response(inp):
+    inp.lower()
+    for n in names:
+        if n in inp:
+            global curr_user
+            curr_user += n
+
+    # encoding the input and retrieving the list of encoded tags with the associated prediction
+    # the higher the prediction value, the more likely that the tag will hold the appropriate response
     result = model.predict(keras.preprocessing.sequence.pad_sequences(tokenizer.texts_to_sequences([inp]),
                                                                       truncating='post', maxlen=max_len))
+
     tag = lbl_encoder.inverse_transform([np.argmax(result)])
 
+    # use the tag generated with keras to search for the best response
     for i in data['intents']:
         if i['tag'] == tag:
             output = np.random.choice(i['responses'])
-            print(Fore.YELLOW + "ChatBot:" + Style.RESET_ALL, output)
-            return output
+            if tag in address_user_by_name:
+                output += curr_user  # using the user's name (if given) when possible
+            print("ChatBot: " + output.lower())
+            output.lower()
+            break
+
+    return output
+
 
 if __name__ == "__main__":
-    print(Fore.GREEN + "Start messaging with the bot (type quit to stop)!" + Style.RESET_ALL)
+    print("Start messaging with the bot (type quit to stop)!")
     chat()
