@@ -489,7 +489,9 @@
       "responses": [
         "I am a Chatbot available to help you 24/7",
         "I chat, therefore I am",
-        "I am  a chatbot and I will be here whenever you need me"
+        "I am  a chatbot and I will be here whenever you need me",
+        "I am your chatbot",
+        "I am a chatbot for your 4th year project"
       ]
     },
     {
@@ -1542,7 +1544,7 @@
         "Do you play badminton",
         "Do you like soccer",
         "Do you like rugby",
-        "Do you like field hockey",
+        "Do you like hockey",
         "Do you like swimming",
         "Do you watch the olympics",
         "Do you like golf",
@@ -1558,10 +1560,23 @@
       ]
     },
     {
+      "tag": "hockey",
+      "patterns": [
+        "Do you like hockey"
+      ],
+      "responses": [
+        "I enjoy a good hockey game from time to time",
+        "I am designed by Canadians so naturally I like hockey",
+        "I am not a big fan to be honest",
+        "I prefer watching",
+        "I do not really have the body for sports"
+      ]
+    },
+    {
       "tag": "greetings - nice to talk to you",
       "patterns": [
-        "it is been so nice to talk to you",
-        "it is been a pleasure talking to you",
+        "it has been so nice to talk to you",
+        "it has been a pleasure talking to you",
         "nice to talk to you",
         "it is nice to talk to you",
         "nice talking to you",
@@ -1619,7 +1634,8 @@
       ],
       "responses": [
         "Happiness is relative",
-        "I would like to think so"
+        "I would like to think so",
+        "I am and I hope you are too"
       ]
     },
     {
@@ -1672,7 +1688,8 @@
         "you are so hungry",
         "you are very hungry",
         "you might be hungry",
-        "you are really hungry"
+        "you are really hungry",
+        "i am hungry"
       ],
       "responses": [
         "hungry for knowledge",
@@ -2404,9 +2421,7 @@
         "From what I know my name is Tom",
         "Oh sorry, I thought you knew My name is Tom",
         "My name is Tom",
-        "You can call me Tom",
-        "I am your chatbot",
-        "I am a chatbot for your 4th year project"
+        "You can call me Tom"
       ]
     },
     {
