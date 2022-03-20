@@ -1,11 +1,9 @@
 # This following code is from the implementation outlined in this website:
-# https://towardsdatascience.com/how-to-build-your-own-chatbot-using-deep-learning-bb41f970e281 
+# https://towardsdatascience.com/how-to-build-your-own-chatbot-using-deep-learning-bb41f970e281
 # This module trains our chatbot to have conversations
 
-import json 
-import numpy as np 
-import tensorflow as tf
-from tensorflow import keras
+import json
+import numpy as np
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Embedding, GlobalAveragePooling1D
 from tensorflow.keras.preprocessing.text import Tokenizer
@@ -23,13 +21,13 @@ responses = []
 # iterate through the json file and store training data and tags
 for intent in data['intents']:
     for pattern in intent['patterns']:
-        training_sentences.append(pattern)
+        training_sentences.append(pattern.lower())
         training_labels.append(intent['tag'])
-    responses.append(intent['responses'])
-    
+    responses.append([x.lower() for x in intent['responses']])
+
     if intent['tag'] not in labels:
         labels.append(intent['tag'])
-        
+
 num_classes = len(labels)
 
 # convert labels into model understandable form
@@ -40,7 +38,7 @@ training_labels = lbl_encoder.transform(training_labels)
 vocab_size = 1000
 embedding_dim = 16
 max_len = 20
-oov_token = "<OOV>" # deals with out of vocabulary words
+oov_token = "<OOV>" # deals with out-of-vocabulary words
 
 tokenizer = Tokenizer(num_words=vocab_size, oov_token=oov_token)
 tokenizer.fit_on_texts(training_sentences)
@@ -60,7 +58,7 @@ model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=
 
 model.summary()
 
-epochs = 500
+epochs = 1000
 history = model.fit(padded_sequences, np.array(training_labels), epochs=epochs)
 
 # save the trained model
@@ -71,7 +69,7 @@ import pickle
 # save the fitted tokenizer
 with open('tokenizer.pickle', 'wb') as handle:
     pickle.dump(tokenizer, handle, protocol=pickle.HIGHEST_PROTOCOL)
-    
+
 # save the fitted label encoder
 with open('label_encoder.pickle', 'wb') as ecn_file:
     pickle.dump(lbl_encoder, ecn_file, protocol=pickle.HIGHEST_PROTOCOL)
