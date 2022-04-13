@@ -13,7 +13,7 @@ from sklearn.preprocessing import LabelEncoder
 import random
 import pickle
 
-file_dir = "C:\\Users\\anwar_tmk\\Desktop\\chatbot"
+file_dir = "./chatbot"
 names = ["christopher", "nicolas", "nazifa", "mohammad"]
 curr_user = " "
 address_user_by_name = ["user name", "_default welcome", "general - bye", "greetings - nice to meet you"]

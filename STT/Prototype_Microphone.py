@@ -2,7 +2,7 @@ from ctypes import sizeof
 from keras.models import load_model
 import numpy as np
 import os
-file_dir = "C:\\Users\\anwar_tmk\\Documents\\Carleton\\4th Year\\4th year project\\SpeechBot\\STT\\"
+file_dir = "./STT"
 model=load_model(os.path.join(file_dir, 'best_model.hdf5'))
 
 all_label = ["hello", "hi", "hey", "would", "with", "to", "this", "on", "is", "it", "no","yes", "your", "you", "that", "not", "Nicolas", "Nazifa", "in", "I", "for", "do", "but", "as", "again", "afternoon", "and", "age", "a", "able", "about", "by","have" ]

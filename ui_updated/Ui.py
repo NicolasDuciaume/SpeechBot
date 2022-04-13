@@ -8,7 +8,7 @@ import STT.Prototype_Microphone as PM
 import TTS.TTS as tts
 import chatbot.chat as cb
 
-file_dir = "C:\\Users\\anwar_tmk\\Documents\\Carleton\\4th Year\\4th year project\\SpeechBot\\ui_updated"
+file_dir = "./ui_updated"
 
 
 def updateCounter(tet):
