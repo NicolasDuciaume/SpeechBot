@@ -57,6 +57,8 @@ def generate_response(inp):
     result = model.predict(keras.preprocessing.sequence.pad_sequences(tokenizer.texts_to_sequences([inp]),
                                                                       truncating='post', maxlen=max_len))
 
+    # print(result)
+    print(f"Index of best match: {np.argmax(result)}")
     tag = lbl_encoder.inverse_transform([np.argmax(result)])
 
     # use the tag generated with keras to search for the best response

@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.uic import loadUi
 import sys
 import os
+
 sys.path.insert(1, './')
 import STT.Prototype_Microphone as PM
 import TTS.TTS as tts
@@ -39,16 +40,15 @@ class TextChatBot(QMainWindow):
         self.send.clicked.connect(self.onSendCl)
         self.start.clicked.connect(self.StartPressed)
         self.mainScreen.clicked.connect(MainScreen)
-        
+
     def StartPressed(self):
         self.sendtext.setText(PM.Combination_Predict())
-    
 
     def onSendCl(self):
         save = self.sendtext.text()
         print("user input: {}".format(save))
         self.sendtext.setText("")
-        reply = cb.generate_response(save) # send user input to chatbot and receive reply
+        reply = cb.generate_response(save)  # send user input to chatbot and receive reply
         self.sendandrec.append('\n' + 'you: ' + save + '\n' + 'Bot: ' + reply)
         tts.input_txt(reply)
 
@@ -71,9 +71,6 @@ class VoiceChatBot(QMainWindow):
         # reply = cb.generate_response(user_inp)  # send user input to chatbot and receive reply
         # ADD RECORDED TEXT FROM THE SPEECH IN PLACE OF RECORDED_AUDIO
         # self.sendandrec.append('\n' + 'you: ' + RECORDED_AUDIO + '\n' + 'Bot: ' + reply)
-    
-
-
 
 
 if __name__ == "__main__":
