@@ -9,3 +9,20 @@ This is a 4th Year Project on the topic of Text to Speech, Speech to Text and Ch
 - Nicolas Duciaume: nicolasduciaume@cmail.carleton.ca
 
 ## Installation
+### clone and cd into repo and install required packages
+pip install -r requirements.txt
+
+## Run Speechbot
+cd ui_updated
+python Ui.py # run Speechbot
+
+
+## Run Chabot
+cd chatbot
+python train_chatbot.py # OPTIONAL - train the chatbot
+python chat.py # run
+
+## Run Speech-to-Text
+cd STT
+python Training_model.py # OPTIONAL - train the chatbot
+python Prototype_Microphone.py # run
