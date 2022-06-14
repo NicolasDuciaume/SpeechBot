@@ -14,6 +14,7 @@ import random
 import pickle
 
 file_dir = "./chatbot"
+file_dir2 = "./"
 names = ["christopher", "nicolas", "nazifa", "mohammad"]
 curr_user = " "
 address_user_by_name = ["user name", "_default welcome", "general - bye", "greetings - nice to meet you"]
@@ -22,7 +23,7 @@ with open(os.path.join(file_dir, "intents.json")) as file:
     data = json.load(file)
 
     # load trained model
-    model = keras.models.load_model(os.path.join(file_dir, "chat_model"))
+    model = keras.models.load_model(os.path.join(file_dir2, "chat_model.h5"))
 
     # load tokenizer object
     with open(os.path.join(file_dir, 'tokenizer.pickle'), 'rb') as handle:
